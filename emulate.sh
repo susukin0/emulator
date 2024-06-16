@@ -22,12 +22,6 @@ yes | $SDKMANAGER --install "emulator" "platforms;android-30" "platform-tools" -
 yes | $SDKMANAGER "system-images;android-30;google_apis_playstore;x86_64" --sdk_root=$OPT_DIR
 yes | $SDKMANAGER --update --sdk_root=$OPT_DIR
 
-# Check if AVD directory is moved and create symbolic link
-if [[ ! -d $OPT_DIR/.android/avd ]]; then
-    sudo mv ~/.android/avd $OPT_DIR/.android/
-    ln -s $OPT_DIR/.android/avd ~/.android/avd
-fi
-
 # Create AVD if it doesn't exist
 if [[ ! -d $OPT_DIR/.android/avd/$AVD_NAME.avd ]]; then
     echo 'no' | $AVDMANAGER create avd -n $AVD_NAME -k "system-images;android-30;google_apis_playstore;x86_64" -p "$OPT_DIR/.android/avd/$AVD_NAME.avd/" --force
